@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { auth } from '$lib/firebase/client';
+	import { auth, db } from '$lib/firebase/client';
 	import { createUserWithEmailAndPassword } from 'firebase/auth';
+	import { doc, setDoc } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
 	let email = '';
@@ -9,13 +10,22 @@
 	let error = '';
 
 	async function handleSubmit() {
+		if (!auth || !db) {
+			error = 'System initialization failed';
+			return;
+		}
+
 		if (password !== confirmPassword) {
 			error = 'Access codes do not match';
 			return;
 		}
 
 		try {
-			await createUserWithEmailAndPassword(auth, email, password);
+			const userCredential = await createUserWithEmailAndPassword(auth as any, email, password);
+			await setDoc(doc(db as any, 'users', userCredential.user.uid), {
+				uid: userCredential.user.uid,
+				creationDate: new Date().toISOString()
+			});
 			goto('/dashboard');
 		} catch (e: any) {
 			error =
