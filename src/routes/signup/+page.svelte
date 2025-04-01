@@ -1,28 +1,35 @@
 <script lang="ts">
 	import { auth } from '$lib/firebase/client';
-	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import { createUserWithEmailAndPassword } from 'firebase/auth';
 	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
+	let confirmPassword = '';
 	let error = '';
 
 	async function handleSubmit() {
-		if (!auth) return;
+		if (password !== confirmPassword) {
+			error = 'Access codes do not match';
+			return;
+		}
 
 		try {
-			await signInWithEmailAndPassword(auth, email, password);
+			await createUserWithEmailAndPassword(auth, email, password);
 			goto('/dashboard');
-		} catch (e) {
-			error = 'Invalid credentials';
+		} catch (e: any) {
+			error =
+				e?.code === 'auth/email-already-in-use'
+					? 'Employee ID already registered'
+					: 'Registration failed';
 		}
 	}
 </script>
 
 <div class="container">
 	<div class="login-box">
-		<h1>Welcome to QuackCorp™</h1>
-		<p class="subtitle">Internal Systems Portal v2.3.1</p>
+		<h1>New Employee Registration</h1>
+		<p class="subtitle">QuackCorp™ Internal Systems Portal</p>
 
 		<form on:submit|preventDefault={handleSubmit}>
 			<div class="form-group">
@@ -41,15 +48,20 @@
 				<input type="password" id="password" bind:value={password} required />
 			</div>
 
+			<div class="form-group">
+				<label for="confirmPassword">Confirm Access Code</label>
+				<input type="password" id="confirmPassword" bind:value={confirmPassword} required />
+			</div>
+
 			{#if error}
 				<p class="error">{error}</p>
 			{/if}
 
-			<button type="submit">Authenticate</button>
+			<button type="submit">Register</button>
 		</form>
 
 		<p class="footer">
-			<a href="/signup">New Employee Registration</a> | © 1997-2024 QuackCorp™ | All Rights Reserved
+			<a href="/">Return to Login</a> | © 1997-2024 QuackCorp™ | All Rights Reserved
 		</p>
 	</div>
 </div>
