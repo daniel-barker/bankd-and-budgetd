@@ -1,3 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+body {
+  background-color: blue;
+  color: theme(--color-gray-900);
+  font-family: theme(--font-sans);
+}

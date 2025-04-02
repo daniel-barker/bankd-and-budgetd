@@ -1,46 +1,40 @@
-<script>
-	import { fade, fly } from 'svelte/transition';
-</script>
+<div class="flex min-h-screen items-center justify-center bg-stone-300 p-4">
+	<div class="flex w-full max-w-7xl flex-col items-center gap-8 lg:flex-row">
+		<!-- Phones Image -->
+		<div class="flex w-full justify-center lg:w-1/2">
+			<img
+				src="/image/phones.png"
+				alt="bank'd and budget'd budgeting app preview"
+				class="w-auto max-w-xs rounded-xl border border-gray-300 shadow-md sm:max-w-sm lg:max-w-md"
+			/>
+		</div>
 
-<div class="min-h-screen bg-gradient-to-b from-white to-gray-50">
-	<!-- Hero Section -->
-	<header class="container mx-auto px-4 py-16">
-		<section class="container mx-auto px-4 py-16">
-			<div class="relative h-[400px] overflow-hidden rounded-xl bg-white shadow-xl">
-				<!-- Placeholder for carousel - we'll implement this later -->
-				<div class="absolute inset-0 flex items-center justify-center bg-gray-100">
-					<p class="text-gray-500">Screenshots coming soon</p>
-				</div>
-			</div>
-		</section>
+		<!-- Text and Buttons -->
+		<div class="flex w-full flex-col items-start gap-4 lg:w-1/2">
+			<h1 class="text-4xl font-light tracking-tight lowercase sm:text-5xl">bank'd and budget'd</h1>
 
-		<section class="flex flex-col items-center text-center">
-			<h1 class="mt-6 text-5xl font-bold text-gray-900" in:fly={{ y: 20, duration: 800 }}>
-				Take control of your money.<br />
-				<span class="text-indigo-600">No stress. No shame.</span>
-			</h1>
+			<div class="text-xl font-medium sm:text-2xl">simple. free.</div>
+			<div class="text-sm text-gray-600 sm:text-base">done.</div>
 
-			<p class="mb-8 max-w-2xl text-xl text-gray-600" in:fly={{ y: 20, duration: 800, delay: 200 }}>
-				A beautiful, beginner-friendly budgeting tool built for real people.
-			</p>
-
-			<div class="flex gap-4" in:fly={{ y: 20, duration: 800, delay: 400 }}>
+			<div class="mt-6 flex flex-col gap-3 sm:flex-row">
 				<a
 					href="/signup"
-					class="rounded-lg bg-indigo-600 px-8 py-3 font-semibold text-white transition-colors hover:bg-indigo-700"
+					class="rounded-md bg-gray-800 px-6 py-3 text-white transition hover:bg-gray-700"
+					>Sign Up Free</a
 				>
-					Sign Up Free
-				</a>
 				<a
 					href="/login"
-					class="rounded-lg border-2 border-indigo-600 bg-white px-8 py-3 font-semibold text-indigo-600 transition-colors hover:bg-indigo-50"
+					class="rounded-md border border-gray-800 px-6 py-3 text-gray-800 transition hover:bg-gray-100"
+					>Login</a
 				>
-					Login
-				</a>
 			</div>
-		</section>
-	</header>
-
-	<!-- Screenshot Carousel -->
-
+		</div>
+	</div>
 </div>
+
+<style lang="postcss">
+	@reference "tailwindcss";
+	:global(body) {
+		background-color: #93c5fd;
+	}
+</style>
