@@ -2,8 +2,8 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-* {
+/* * {
   background-image: url('/textures/paper-fiber-light.png');
   background-size: auto;
   background-blend-mode: multiply;
-}
+} */
